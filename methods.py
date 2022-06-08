@@ -1,4 +1,6 @@
+from operator import truediv
 import dataStructures as ds
+import random as r
 
 def obtiene_estado_inicial(variante):
     match variante:
@@ -21,6 +23,7 @@ def obtiene_movimientos(estado):
         for j in range(len(estado[0][i])):
             if(estado[0][i][j] == estado[1]):
                 lista_movimientos.extend(obtiene_movimientos_desde_casilla(estado,(i,j)))
+    r.shuffle(lista_movimientos)
     return lista_movimientos
                 
 
@@ -63,7 +66,32 @@ def obtiene_movimientos_desde_casilla(estado,casilla):
 
 
 
+def ganan_negras(estado,numero_movimientos):
+    b = True
+    if(estado[1] == 2 and numero_movimientos == 0):
+        return b
+    else:
+        for i in estado[0]:
+            for j in i:
+                if(j == 3):
+                    b = False
+                    break
+        return b
 
- ##Función que recibe un estado y devuelve una lista
- ##   con todos los posibles movimientos del jugador activo. Esta lista deberá devolverse
-  ## ”barajada” tras aplicar la función random.shuffle.
+def ganan_blancas(estado,numero_movimientos):
+    b = False
+    if(estado[1] == 1 and numero_movimientos == 0):
+        b = True
+    elif(estado[0][0][0] == 3 
+    or estado[0][0][len(estado[0][0])-1] == 3 
+    or estado[0][len(estado[0][0])-1][0] == 3
+    or estado[0][len(estado[0][0])-1][len(estado[0][0])-1] == 3):
+        b = True
+
+    return b
+
+def es_estado_final(estado, numero_movimientos):
+    b = False
+    if(ganan_blancas(estado,numero_movimientos) or ganan_negras(estado,numero_movimientos)):
+        b = True
+    return b
