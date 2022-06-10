@@ -49,3 +49,8 @@ lista = [   [0,0,0,1,1,1,1,1,0,0,0],
 
 tp_ls = (lista,1)
 print(m.aplica_movimiento(tp_ls,(1,2,3,2)))
+
+print("---------------------Imprime estado-----------------------")
+m.imprime_estado(tupla,0)
+print("---------------------Entender Tablero-----------------------")
+m.entender_tablero(tupla)
