@@ -52,5 +52,3 @@ print(m.aplica_movimiento(tp_ls,(1,2,3,2)))
 
 print("---------------------Imprime estado-----------------------")
 m.imprime_estado(tupla,0)
-print("---------------------Entender Tablero-----------------------")
-m.entender_tablero(tupla)
