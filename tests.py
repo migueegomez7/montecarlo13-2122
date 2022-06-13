@@ -52,3 +52,7 @@ print(m.aplica_movimiento(tp_ls,(1,2,3,2)))
 
 print("--------------------Test conversion a nombre de arhivos png----------------------")
 print(ds.gui_boards(lista))
+
+
+print("---------------------Imprime estado-----------------------")
+m.imprime_estado(tupla,0)

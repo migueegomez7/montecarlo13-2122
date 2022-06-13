@@ -160,3 +160,60 @@ def cambia_estado(num):
         return 2
     else:
         return 1
+    
+def imprime_estado(estado, numero_movimientos):
+    entender_tablero(estado)
+    print("\nPosibles movimientos: " + str(numero_movimientos))
+    if(es_estado_final(estado, numero_movimientos)):
+        if(ganan_blancas(estado,numero_movimientos)):
+            print("Ganan blancas")
+        elif(ganan_negras(estado,numero_movimientos)):
+            print("Ganan negras")
+        else:
+            print("Tablas")
+    elif(estado[1]==2 and numero_movimientos>0):
+        return print("Juegan blancas")
+    elif(estado[1]==1 and numero_movimientos>0):
+        return print("Juegan negras")
+    
+
+def entender_tablero(estado):
+    a=len(estado[0])
+    b=len(estado[0][0])
+    print("     ", end="")
+    for i in range(1,(b+1)):
+        if (i<9):
+            print(str(i), end="  ")
+        else:
+            print(str(i), end=" ")
+           
+        
+        
+    print("")
+    print("   ", end="")
+    
+    # for i in range(1,(b+1)):
+    #     if(i<=9):
+    #         print("---", end="")
+    #     else:
+    #         print("--", end="")
+    
+    print("")
+    
+
+    
+    for e in range(0,(a)):
+        c=estado[0][e]
+        if (e<9):
+            print(str(e+1), end="    ")
+        else:
+            print(str(e+1), end="   ")
+            
+        print(*c, sep="  ")
+    
+   
+  
+              
+    
+       
+            
