@@ -212,8 +212,25 @@ def entender_tablero(estado):
         print(*c, sep="  ")
     
    
-  
-              
-    
+def busca_solucion(estado,tiempo):
+
+v0 = crea_nodo(estado,None)
+while haya_tiempo:
+    v1 = tree_policy(v0)
+    delta = default_policy(v1)
+    backup(v1,delta)
+return v0.movimientos[best_child(v0,0)]
+
+def crea_nodo(estado,padre):
+
+v ← nodo_vacío()
+v.estado ← s
+v.movimientos ← obtiene_movimientos(s)
+v.n ← 0
+v.q ← 0
+v.i ← 0
+v.hijos ← lista vacía.
+v.padre ← padre.
+Devuelve v
        
             
