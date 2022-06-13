@@ -1,3 +1,4 @@
+from copy import copy
 from enum import Enum
 
 
@@ -75,3 +76,15 @@ Alea_Evangelii = [[0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
                       [0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0]]
 
 
+def gui_boards(board):
+    board_cp = copy(board)
+    for i in range(len(board[0])):
+        for j in range(len(board[0])):
+            if(board[i][j] == 1):
+                board_cp[i][j] = "bp"
+            elif(board[i][j] == 2):
+                board_cp[i][j] = "wp"
+            elif(board[i][j] == 3):
+                board_cp[i][j] = "wking"
+    return board_cp
+            

@@ -101,6 +101,7 @@ def es_estado_final(estado, numero_movimientos):
 def aplica_movimiento(estado,movimiento):
     estado_nuevo = c.copy(estado)
     estado_nuevo[0][movimiento[2]][movimiento[3]] = estado_nuevo[0][movimiento[0]][movimiento[1]]
+    estado_nuevo[0][movimiento[0]][movimiento[1]] = 0
     elimina_piezas_capturadas(estado_nuevo,movimiento)
     aux = cambia_estado(estado_nuevo[1])
     estado_tupla_nueva = (estado_nuevo[0],aux)
