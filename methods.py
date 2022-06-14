@@ -1,3 +1,4 @@
+from cmath import sqrt
 from operator import truediv
 import dataStructures as ds
 import random as r
@@ -213,24 +214,38 @@ def entender_tablero(estado):
     
    
 def busca_solucion(estado,tiempo):
-
-v0 = crea_nodo(estado,None)
-while haya_tiempo:
-    v1 = tree_policy(v0)
-    delta = default_policy(v1)
-    backup(v1,delta)
-return v0.movimientos[best_child(v0,0)]
+    v0 = crea_nodo(estado,None)
+    while haya_tiempo:
+        v1 = tree_policy(v0)
+        delta = default_policy(v1)
+        backup(v1,delta)
+    return v0.movimientos[best_child(v0,0)]
 
 def crea_nodo(estado,padre):
+    v = nodo_vacio()
+    v.setEstado = estado
+    v.setMovimientos = obtiene_movimientos(estado)
+    v.n = 0
+    v.q = 0
+    v.i = 0
+    v.hijos = []
+    v.padre = padre
+    return v
 
-v ← nodo_vacío()
-v.estado ← s
-v.movimientos ← obtiene_movimientos(s)
-v.n ← 0
-v.q ← 0
-v.i ← 0
-v.hijos ← lista vacía.
-v.padre ← padre.
-Devuelve v
-       
+def tree_policy(nodo):
+    while not es_estado_final(nodo.estado,nodo.movimientos):
+        if(nodo.i < len(nodo.movimientos)):
+            return expand(nodo)
+        else
+            nodo = nodo.hijos[best_child(nodo, 1/sqrt(2))]
+    
+
+def expand(nodo):
+    estado = aplica_movimiento(nodo.estado, nodo.movimientos[nodo.i])
+    nodo.i = nodo.i +1
+    hijo = crea_nodo(estado, nodo)
+    nodo.hijos.append(hijo)
+    return hijo
+
+
             
