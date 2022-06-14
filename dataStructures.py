@@ -87,4 +87,14 @@ def gui_boards(board):
             elif(board[i][j] == 3):
                 board_cp[i][j] = "wking"
     return board_cp
+
+class nodo:
+
+    def __init__(self,estado,movimientos,n,q,i,hijos):
+        self.estado = estado
+        self.movimientos = movimientos
+        self.n = n
+        self.q = q
+        self.i = i
+        self.hijos = hijos
             
