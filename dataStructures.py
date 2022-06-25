@@ -1,5 +1,6 @@
 from copy import copy
 from enum import Enum
+import methods as meth
 
 
 BLACK_PLAYER = 1
@@ -90,11 +91,12 @@ def gui_boards(board):
 
 class nodo:
 
-    def __init__(self,estado,movimientos,n,q,i,hijos):
-        self.estado = estado
-        self.movimientos = movimientos
-        self.n = n
-        self.q = q
-        self.i = i
-        self.hijos = hijos
+    def __init__(self):
+        self.estado = None
+        self.movimientos = []
+        self.n = 0
+        self.q = 0
+        self.i = 0
+        self.hijos = []
+        self.padre = None
             

@@ -1,8 +1,9 @@
-from cmath import sqrt
+from cmath import log, sqrt
 from operator import truediv
 import dataStructures as ds
 import random as r
 import copy as c
+import time
 
 def obtiene_estado_inicial(variante):
     match variante:
@@ -212,19 +213,24 @@ def entender_tablero(estado):
             
         print(*c, sep="  ")
     
+
+
+
+
    
 def busca_solucion(estado,tiempo):
     v0 = crea_nodo(estado,None)
-    while haya_tiempo:
+    timeout = time.time() + tiempo
+    while time.time() < timeout: #Mientras que el tiempo actual sea menor que el tiempo dentro de +tiempo segundos
         v1 = tree_policy(v0)
         delta = default_policy(v1)
         backup(v1,delta)
     return v0.movimientos[best_child(v0,0)]
 
 def crea_nodo(estado,padre):
-    v = nodo_vacio()
-    v.setEstado = estado
-    v.setMovimientos = obtiene_movimientos(estado)
+    v = ds.nodo()
+    v.estado = estado
+    v.movimientos = obtiene_movimientos(estado)
     v.n = 0
     v.q = 0
     v.i = 0
@@ -236,7 +242,7 @@ def tree_policy(nodo):
     while not es_estado_final(nodo.estado,nodo.movimientos):
         if(nodo.i < len(nodo.movimientos)):
             return expand(nodo)
-        else
+        else:
             nodo = nodo.hijos[best_child(nodo, 1/sqrt(2))]
     
 
@@ -248,4 +254,34 @@ def expand(nodo):
     return hijo
 
 
-            
+def best_child(nodo,c):
+    nodo_aux = ds.nodo()
+    for i in range(0,len(nodo.hijos)):
+        nodo_value = (nodo.hijos[i].q / nodo.hijos[i].n) + c * sqrt(2*log(nodo.n,10)/nodo.hijos[i].n)
+        nodo_aux_value = (nodo_aux.hijos[i].q / nodo_aux.hijos[i].n) + c * sqrt(2*log(nodo_aux.n,10)/nodo_aux.hijos[i].n)
+        if(nodo_value > nodo_aux_value):
+            nodo_aux = nodo
+    return nodo_aux
+
+def default_policy(nodo):
+    estado = nodo.estado
+    movs = nodo.movimientos
+    jugador = nodo.padre.estado[1]
+    while not es_estado_final(estado,movs):
+        a = r.randint(0,len(movs)-1)
+        estado = aplica_movimiento(estado, movs[a])
+    if(ganan_blancas(estado,movs) and jugador == 2):
+        return 1
+    elif(ganan_negras(estado,movs) and jugador == 1):
+        return 1
+    else:
+        return -1
+    
+def backup(nodo,delta):
+    while nodo != None:
+        nodo.n = nodo.n+1
+        nodo.q = nodo.q + delta
+        delta = -delta
+        nodo = nodo.padre
+
+
