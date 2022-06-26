@@ -122,30 +122,30 @@ def elimina_piezas_capturadas(estado_nuevo,movimiento):
     #Izq
     if(j>0):
         if(estado_nuevo[0][i][j-1] == estado_opuesto):
-            if((j-1 == 0 and i == 0) or (j-1 == 0 and i == last_index)): ##Comprueba si es una esquina
+            if((j-2 == 0 and i == 0) or (j-2 == 0 and i == last_index)): ##Comprueba si es una esquina
                 elimIzq = True
             elif(j-2 >= 0 and estado_nuevo[0][i][j-2] == estado_nuevo[1]):
                 elimIzq = True
     #Ariba
     if(i>0):
         if(estado_nuevo[0][i-1][j] == estado_opuesto):
-            if((i-1 == 0 and j == 0) or (i-1 == 0 and j == last_index)):
+            if((i-2 == 0 and j == 0) or (i-2 == 0 and j == last_index)):
                 elimArriba = True
             elif(i-2 >= 0 and estado_nuevo[0][i-2][j] == estado_nuevo[1]):
                 elimArriba = True
     #Dcha
     if(j<last_index):
         if(estado_nuevo[0][i][j+1] == estado_opuesto):
-            if((j+1 == 0 and i == 0) or (j+1 == 0 and i == last_index)): ##Comprueba si es una esquina
+            if((j+2 == last_index and i == 0) or (j+2 == last_index and i == last_index)): ##Comprueba si es una esquina
                 elimDcha = True
             elif(j+2 <= last_index and estado_nuevo[0][i][j+2] == estado_nuevo[1]):
                 elimDcha = True
     #Abajo
     if(i<last_index):
         if(estado_nuevo[0][i+1][j] == estado_opuesto):
-            if((i+1 == 0 and j == 0) or (i+1 == 0 and j == last_index)):
+            if((i+2 == last_index and j == 0) or (i+2 == last_index and j == last_index)):
                 elimAbajo = True
-            elif(i+2 >= 0 and estado_nuevo[0][i+2][j] == estado_nuevo[1]):
+            elif(i+2 <= last_index and estado_nuevo[0][i+2][j] == estado_nuevo[1]):
                 elimAbajo = True
     if(elimIzq == True):
         estado_nuevo[0][i][j-1] = 0
