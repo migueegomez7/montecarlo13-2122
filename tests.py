@@ -58,4 +58,4 @@ print("---------------------Imprime estado-----------------------")
 m.imprime_estado(tupla,0)
 
 print("------------------ Test busca solución---------------------")
-m.busca_solucion(tupla,15)
+m.busca_solucion(tupla,10)

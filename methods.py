@@ -121,7 +121,7 @@ def elimina_piezas_capturadas(estado_nuevo,movimiento):
     elimAbajo = False
     #Izq
     if(j>0):
-        if(estado_nuevo[0][i][j-1] == estado_opuesto):
+        if(estado_nuevo[0][i][j-1] == estado_opuesto): ##Comprueba que la casilla de la izquierda tiene una pieza del color opuesto
             if((j-2 == 0 and i == 0) or (j-2 == 0 and i == last_index)): ##Comprueba si es una esquina
                 elimIzq = True
             elif(j-2 >= 0 and estado_nuevo[0][i][j-2] == estado_nuevo[1]):
@@ -225,7 +225,7 @@ def busca_solucion(estado,tiempo):
         v1 = tree_policy(v0)
         delta = default_policy(v1)
         backup(v1,delta)
-    return v0.movimientos[best_child(v0,0)]
+    return best_child(v0,0) #v0.movimientos nsk
 
 def crea_nodo(estado,padre):
     v = ds.nodo()
@@ -260,7 +260,7 @@ def best_child(nodo,c):
         nodo_value = (nodo.hijos[i].q / nodo.hijos[i].n) + c * sqrt(2*log(nodo.n,10)/nodo.hijos[i].n)
         nodo_aux_value = (nodo_aux.hijos[i].q / nodo_aux.hijos[i].n) + c * sqrt(2*log(nodo_aux.n,10)/nodo_aux.hijos[i].n)
         if(nodo_value > nodo_aux_value):
-            nodo_aux = nodo
+            nodo_aux = nodo.hijos[i]
     return nodo_aux
 
 def default_policy(nodo):
