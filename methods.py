@@ -1,4 +1,5 @@
 from cmath import log, sqrt
+import math as matem
 from operator import truediv
 import dataStructures as ds
 import random as r
@@ -32,16 +33,12 @@ def obtiene_movimientos(estado):
 
 ## Recibe el estado actual del tablero y una casilla con una pieza del jugador con turno activo. Devuelve los movimientos disponibles a realizar.
 def obtiene_movimientos_desde_casilla(estado,casilla):
-    ##Y  LAS ESQUINAS QUÉ??!!!
-    ##Y  LAS ESQUINAS QUÉ??!!!
-    ##Y  LAS ESQUINAS QUÉ??!!!
-    ##Y  LAS ESQUINAS QUÉ??!!!
     ##Casillas libres a la izq
     lista_movimientos = []
     fila = casilla[0]
-    print(fila)
+    # print(fila)
     columna = casilla[1]
-    print(columna)
+    # print(columna)
     for i in range (columna-1,-1,-1):
         if(estado[0][fila][i] == 0):
             lista_movimientos.append((fila,columna,fila,i))
@@ -223,10 +220,11 @@ def busca_solucion(estado,tiempo):
     timeout = time.time() + tiempo
     while time.time() < timeout: #Mientras que el tiempo actual sea menor que el tiempo dentro de +tiempo segundos
         v1 = tree_policy(v0)
+        if v1 == None:
+            break
         delta = default_policy(v1)
         backup(v1,delta)
-    index = v0.movimientos.index(best_child(v0,0))
-    return v0.movimientos[index] #v0.movimientos nsk
+    return v0.movimientos[best_child(v0, 0)] #v0.movimientos nsk
 
 def crea_nodo(estado,padre):
     v = ds.nodo()
@@ -244,8 +242,7 @@ def tree_policy(nodo):
         if(nodo.i < len(nodo.movimientos)):
             return expand(nodo)
         else:
-            index = nodo.hijos.index(best_child(nodo, 1/sqrt(2)))
-            nodo = nodo.hijos[index]
+            nodo = nodo.hijos[best_child(nodo, 1/sqrt(2))]
     
 
 def expand(nodo):
@@ -257,13 +254,22 @@ def expand(nodo):
 
 
 def best_child(nodo,c):
-    nodo_aux = nodo.hijos[0]
-    for i in range(1,len(nodo.hijos)):
-        nodo_value = (nodo.hijos[i].q / nodo.hijos[i].n) + c * sqrt(2*log(nodo.n,10)/nodo.hijos[i].n)
-        nodo_aux_value = (nodo_aux.q / nodo_aux.n) + c * sqrt(2*log(nodo_aux.n,10)/nodo_aux.n)
-        if(nodo_value > nodo_aux_value):
-            nodo_aux = nodo.hijos[i]
-    return nodo_aux
+    # nodo_aux = nodo.hijos[0]
+    # indice = 0
+    # for i in range(1,len(nodo.hijos)):
+    #     nodo_value = (nodo.hijos[i].q / nodo.hijos[i].n) + c * sqrt(2*log(nodo.n,10)/nodo.hijos[i].n)
+    #     nodo_aux_value = (nodo_aux.q / nodo_aux.n) + c * sqrt(2*log(nodo_aux.n,10)/nodo_aux.n)
+    #     if(nodo_value > nodo_aux_value):
+    #         nodo_aux = nodo.hijos[i]
+    #         indice = i
+    # return indice
+    ls = []
+    for hijo in nodo.hijos:
+        aux = hijo.q/hijo.n + c*(2*matem.sqrt(matem.log(nodo.n,10)/hijo.n))
+        if isinstance(aux, complex):
+            aux = aux.real
+        ls.append(aux)
+    return ls.index(max(ls))
 
 def default_policy(nodo):
     estado = nodo.estado

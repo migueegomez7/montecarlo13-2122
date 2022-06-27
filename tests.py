@@ -55,7 +55,8 @@ print(ds.gui_boards(lista))
 
 
 print("---------------------Imprime estado-----------------------")
-m.imprime_estado(tupla,0)
+m.imprime_estado(tupla,8)
 
-print("------------------ Test busca solución---------------------")
-m.busca_solucion(tuplai,10)
+
+# print("------------------ Test busca solución---------------------")
+# print(m.busca_solucion(tuplai,10))
