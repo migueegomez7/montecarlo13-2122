@@ -8,7 +8,7 @@ def print_estado_inicial(tupla):
     for i in range(len(tupla[0])):
         print(tupla[0][i])
     print(tupla[1])
-
+tuplai = m.obtiene_estado_inicial(1)
 
 print("---------------Estado inicial------------------")
 print_estado_inicial(tupla)
@@ -58,4 +58,4 @@ print("---------------------Imprime estado-----------------------")
 m.imprime_estado(tupla,0)
 
 print("------------------ Test busca solución---------------------")
-m.busca_solucion(tupla,10)
+m.busca_solucion(tuplai,10)

@@ -225,7 +225,8 @@ def busca_solucion(estado,tiempo):
         v1 = tree_policy(v0)
         delta = default_policy(v1)
         backup(v1,delta)
-    return best_child(v0,0) #v0.movimientos nsk
+    index = v0.movimientos.index(best_child(v0,0))
+    return v0.movimientos[index] #v0.movimientos nsk
 
 def crea_nodo(estado,padre):
     v = ds.nodo()
@@ -239,11 +240,12 @@ def crea_nodo(estado,padre):
     return v
 
 def tree_policy(nodo):
-    while not es_estado_final(nodo.estado,nodo.movimientos):
+    while not es_estado_final(nodo.estado,len(nodo.movimientos)):
         if(nodo.i < len(nodo.movimientos)):
             return expand(nodo)
         else:
-            nodo = nodo.hijos[best_child(nodo, 1/sqrt(2))]
+            index = nodo.hijos.index(best_child(nodo, 1/sqrt(2)))
+            nodo = nodo.hijos[index]
     
 
 def expand(nodo):
@@ -255,10 +257,10 @@ def expand(nodo):
 
 
 def best_child(nodo,c):
-    nodo_aux = ds.nodo()
-    for i in range(0,len(nodo.hijos)):
+    nodo_aux = nodo.hijos[0]
+    for i in range(1,len(nodo.hijos)):
         nodo_value = (nodo.hijos[i].q / nodo.hijos[i].n) + c * sqrt(2*log(nodo.n,10)/nodo.hijos[i].n)
-        nodo_aux_value = (nodo_aux.hijos[i].q / nodo_aux.hijos[i].n) + c * sqrt(2*log(nodo_aux.n,10)/nodo_aux.hijos[i].n)
+        nodo_aux_value = (nodo_aux.q / nodo_aux.n) + c * sqrt(2*log(nodo_aux.n,10)/nodo_aux.n)
         if(nodo_value > nodo_aux_value):
             nodo_aux = nodo.hijos[i]
     return nodo_aux
@@ -267,12 +269,13 @@ def default_policy(nodo):
     estado = nodo.estado
     movs = nodo.movimientos
     jugador = nodo.padre.estado[1]
-    while not es_estado_final(estado,movs):
+    while not es_estado_final(estado,len(movs)):
         a = r.randint(0,len(movs)-1)
         estado = aplica_movimiento(estado, movs[a])
-    if(ganan_blancas(estado,movs) and jugador == 2):
+        movs = obtiene_movimientos(estado)
+    if(ganan_blancas(estado,len(movs)) and jugador == 2):
         return 1
-    elif(ganan_negras(estado,movs) and jugador == 1):
+    elif(ganan_negras(estado,len(movs)) and jugador == 1):
         return 1
     else:
         return -1
