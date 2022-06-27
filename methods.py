@@ -96,7 +96,6 @@ def es_estado_final(estado, numero_movimientos):
         b = True
     return b
 
-#En algun lao habrá que checkear que el movimiento que entra aqui sea valido
 def aplica_movimiento(estado,movimiento):
     estado_nuevo = copia(estado)
     estado_nuevo[0][movimiento[2]][movimiento[3]] = estado_nuevo[0][movimiento[0]][movimiento[1]]
@@ -234,7 +233,7 @@ def busca_solucion(estado,tiempo):
             break
         delta = default_policy(v1)
         backup(v1,delta)
-    return v0.movimientos[best_child(v0, 0)] #v0.movimientos nsk
+    return v0.movimientos[best_child(v0, 0)] 
 
 def crea_nodo(estado,padre):
     v = ds.nodo()
