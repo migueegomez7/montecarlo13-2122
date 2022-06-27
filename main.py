@@ -15,6 +15,19 @@ def main():
     #         [0,0,0,0,0,1,0,0,0,0,0],
     #         [0,0,0,1,1,1,1,1,0,0,0]]
     # tupla = (lista,1)
+
+    # lista2 = [[0,3,0,1,1,1,1,1,0,0,0],
+    #          [0,0,1,0,0,0,0,0,0,0,0],
+    #          [0,1,0,1,0,0,0,0,0,0,0],
+    #          [1,2,0,0,0,0,0,0,0,0,1],
+    #          [1,0,0,0,0,0,2,0,0,0,1],
+    #          [1,0,1,2,1,0,1,2,0,1,1], ##Línea del medio
+    #          [1,0,0,0,2,0,2,0,0,0,1],
+    #          [1,0,0,0,0,2,0,0,0,0,1],
+    #          [0,0,0,0,0,0,0,0,0,0,0],
+    #          [0,0,0,0,0,1,0,0,0,0,0],
+    #          [0,0,0,1,1,1,1,1,0,0,0]]
+    # tupla2 = (lista2,1)
     tiempo = 0
     variante = choose_board()
     estado_inicial = obtiene_estado_inicial(variante)
@@ -73,6 +86,10 @@ def start_game(estado,num_movs,chosen_side,play_human,tiempo):
             estado_nuevo = player_turn(aux,1)
             if(not es_estado_final(estado_nuevo,len(obtiene_movimientos(estado_nuevo)))):
                 aux = player_turn(estado_nuevo,2)
+                if(es_estado_final(aux,len(obtiene_movimientos(aux)))):
+                    imprime_estado(aux,len(obtiene_movimientos(aux)))
+                    print("\n----------------------------------\n|                                |\n|Gracias. La partida ha terminado|\n|                                |\n----------------------------------")
+                    break
             else:
                 imprime_estado(estado_nuevo,len(obtiene_movimientos(estado_nuevo)))
                 print("\n----------------------------------\n|                                |\n|Gracias. La partida ha terminado|\n|                                |\n----------------------------------")

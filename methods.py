@@ -25,7 +25,7 @@ def obtiene_movimientos(estado):
     lista_movimientos = []
     for i in range(len(estado[0])):
         for j in range(len(estado[0][i])):
-            if(estado[0][i][j] == estado[1]):
+            if(estado[0][i][j] == estado[1] or (estado[0][i][j] == 3 and estado[1] == 2)):
                 lista_movimientos.extend(obtiene_movimientos_desde_casilla(estado,(i,j)))
     r.shuffle(lista_movimientos)
     return lista_movimientos
