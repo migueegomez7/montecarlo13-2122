@@ -58,5 +58,6 @@ print("---------------------Imprime estado-----------------------")
 m.imprime_estado(tupla,8)
 
 
+
 # print("------------------ Test busca solución---------------------")
 # print(m.busca_solucion(tuplai,10))

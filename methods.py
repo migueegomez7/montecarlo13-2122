@@ -98,7 +98,7 @@ def es_estado_final(estado, numero_movimientos):
 
 #En algun lao habrá que checkear que el movimiento que entra aqui sea valido
 def aplica_movimiento(estado,movimiento):
-    estado_nuevo = c.copy(estado)
+    estado_nuevo = copia(estado)
     estado_nuevo[0][movimiento[2]][movimiento[3]] = estado_nuevo[0][movimiento[0]][movimiento[1]]
     estado_nuevo[0][movimiento[0]][movimiento[1]] = 0
     elimina_piezas_capturadas(estado_nuevo,movimiento)
@@ -152,8 +152,17 @@ def elimina_piezas_capturadas(estado_nuevo,movimiento):
         estado_nuevo[0][i][j+1] = 0
     if(elimAbajo == True):
         estado_nuevo[0][i+1][j] = 0
+    
+    elimina_rey(estado_nuevo)
     return estado_nuevo
 
+def elimina_rey(estado):
+    for i in range(0,len(estado[0][0])):
+        for j in range(0,len(estado[0][0])):
+            if estado[0][i][j] == 3:
+                if(estado[0][i-1][j]==1 and estado[0][i][j+1]==1 and estado[0][i+1][j]==1 and estado[0][i][j-1]==1):
+                    estado[0][i][j] = 0
+                    
 def cambia_estado(num):
     if(num == 1):
         return 2
@@ -216,7 +225,8 @@ def entender_tablero(estado):
 
    
 def busca_solucion(estado,tiempo):
-    v0 = crea_nodo(estado,None)
+    estado_nuevo = copia(estado)
+    v0 = crea_nodo(estado_nuevo,None)
     timeout = time.time() + tiempo
     while time.time() < timeout: #Mientras que el tiempo actual sea menor que el tiempo dentro de +tiempo segundos
         v1 = tree_policy(v0)
@@ -294,3 +304,11 @@ def backup(nodo,delta):
         nodo = nodo.padre
 
 
+def copia(estado):
+    new_list = []
+    for i in range(0,len(estado[0][0])):
+        list_aux = []
+        for j in range(0,len(estado[0][0])):
+            list_aux.append(estado[0][i][j])
+        new_list.append(list_aux)
+    return new_list,estado[1]
